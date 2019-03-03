@@ -13,11 +13,11 @@ class WebHandler:
 			self.driver = webdriver.Chrome()
 		else:
 			self.driver = driver
-
 		# go the the startpage
 		self.driver.get(startpage)
 		self.submit_button_type = "search-submit"
 
+	def fill_fields(self):
 		self.fill_box("destination", destination)
 		self.fill_box("origin",origin)
 		print('Set depart date')
@@ -28,10 +28,12 @@ class WebHandler:
 		# import pdb; pdb.set_trace()
 
 	def fill_box(self,name,message):
+		box = self.driver.find_element_by_name(name)
 		# emptybox
-		self.driver.find_element_by_name(name).clear()
+		box.clear()
 		# send message to box
-		self.driver.find_element_by_name(name).send_keys(message)
+		box.send_keys(message)
+		return box
 
 	def set_date(self, date, Depart=True):
 		if Depart:
@@ -60,37 +62,24 @@ class WebHandler:
 			# print(day.get_attribute("data-date"))
 			if day.get_attribute("data-date") == date:
 				return day
+		raise AttributeError ("day not found on page, \
+				is the date valid? example 2019-03-13")
 
 	def find_correct_calender(self, div):
-		calenders = self.driver.find_elements_by_class_name('drawer-tab-content')
-		for cal in calenders:
+		cals = self.driver.find_elements_by_class_name('drawer-tab-content')
+		for cal in cals:
 			if cal.get_attribute('data-tab') == div:
 				print('found calender')
 				return cal
+		raise AttributeError('div class not found in the calendars')
 
 	def click_submit_button(self, css_class_name=None):
 		if css_class_name == None:
 			css_class_name = self.submit_button_type
-		self.driver.find_element_by_class_name(css_class_name).click()
-
+		sub_button = self.driver.find_element_by_class_name(css_class_name)
+		sub_button.click()
+		return sub_button
 
 
 if __name__ == '__main__':
-	# wr = WebHandler('http://www.easyjet.com/en/')
-	# wr.fill_box("destination", "AMS")
-	# wr.fill_box("origin", "LGW")
-	# wr.set_date("2019-03-13",Depart=True)
-	# print('Set Return')
-	# wr.set_date("2019-03-15",Depart=False)
-	# import pdb; pdb.set_trace()
-	#
-	# wr.click_submitbutton()
-	#
-	# import pdb; pdb.set_trace()
-	nwr = WebHandler('http://www.easyjet.com/en/', "AMS", "LGW", "2019-03-13", "2019-03-15")
-
-# <button ng-if="!IsSearchForWorldwideRoute()" type="button" class="ej-button rounded-corners arrow-button search-submit" ej-click-event="SubmitFlightSearch()">
-# 			Show flights
-# 		</button>
-
-# <div class="day" data-date="2019-03-22"><a class="selectable" href="javascript:void(0);" ej-child-click-event="OnSelect(2019, 3, 22)"><span class="day-number" aria-hidden="true">22</span><span class="access-hidden help-text">Friday 22nd March 2019</span></a></div>
+	wh = WebHandler('http://www.easyjet.com/en/', "AMS", "LGW", "2019-03-13", "2019-03-15")

@@ -44,7 +44,8 @@ class WebHandler:
 			calender_div = "Date Calendar Return"
 
 		date_box = self.driver.find_element_by_class_name(class_name)
-		date_box_button = date_box.find_element_by_class_name("date-picker-button")
+		date_box_button = date_box.find_element_by_class_name( \
+											"date-picker-button")
 		date_box_button.click()
 		time.sleep(2)
 		calender = self.find_correct_calender(calender_div)
@@ -82,4 +83,5 @@ class WebHandler:
 
 
 if __name__ == '__main__':
-	wh = WebHandler('http://www.easyjet.com/en/', "AMS", "LGW", "2019-03-13", "2019-03-15")
+	wh = WebHandler('http://www.easyjet.com/en/', "AMS", "LGW", \
+					"2019-03-13", "2019-03-15")

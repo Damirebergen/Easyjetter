@@ -2,36 +2,38 @@
 easyjetter
 ==========
 
-
-.. image:: https://img.shields.io/pypi/v/easyjetter.svg
-        :target: https://pypi.python.org/pypi/easyjetter
-
-.. image:: https://img.shields.io/travis/damirebergen/easyjetter.svg
-        :target: https://travis-ci.org/damirebergen/easyjetter
-
-.. image:: https://readthedocs.org/projects/easyjetter/badge/?version=latest
-        :target: https://easyjetter.readthedocs.io/en/latest/?badge=latest
-        :alt: Documentation Status
-
-
-
-
-check easyjet site
+check easyjet site for prices and alarm user
 
 
 * Free software: MIT license
-* Documentation: https://easyjetter.readthedocs.io.
-
+* Documentation: todo
+<!---
+https://easyjetter.readthedocs.io.
+--->
 
 Features
 --------
+Fill in Easyjet site with
 
-* TODO
+* Destination
+* Origin
+* Departure date
+* Return date
+
+
+To do
+--------
+
+- Extract prices from price page
+- compare prices to original price
+- alert user
+- Unit test all features
+
 
 Credits
 -------
 
-This package was created with Cookiecutter_ and the `audreyr/cookiecutter-pypackage`_ project template.
+This package was created with `Cookiecutter` and the `audreyr/cookiecutter-pypackage` project template.
 
-.. _Cookiecutter: https://github.com/audreyr/cookiecutter
-.. _`audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage
+- `Cookiecutter`: https://github.com/audreyr/cookiecutter
+- `audreyr/cookiecutter-pypackage`: https://github.com/audreyr/cookiecutter-pypackage

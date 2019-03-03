@@ -1,5 +1,4 @@
-==========
-easyjetter
+Easyjetter
 ==========
 
 check easyjet site for prices and alarm user

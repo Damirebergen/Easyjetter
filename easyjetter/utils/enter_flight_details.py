@@ -5,19 +5,20 @@ from selenium import webdriver
 import time
 
 class WebHandler:
+	"""test string"""
 	def __init__(self, startpage, destination, origin,
 				depart_date, return_date, driver=None):
-    """handles all the actions needed to get to the price page.
-    Args:
-        startpage (string): http link of the page to start the driver on.
-        destination (string): 3 letter code of the destination airport
-        origin (string): 3 letter code of the departure airport
-        depart_date (string): YYYY-MM-DD string of the departure date
-        return_date (string): YYYY-MM-DD string of the arrival date
-        driver (class): selenium driver to use, starts its own when none.
-    Returns:
-        None
-    """
+		""" Handles all the actions needed to get to the price page
+		Args:
+		startpage (string): http link of the page to start the driver on.
+		destination (string): 3 letter code of the destination airport
+		origin (string): 3 letter code of the departure airport
+		depart_date (string): YYYY-MM-DD string of the departure date
+		return_date (string): YYYY-MM-DD string of the arrival date
+		driver (class): selenium driver to use, starts its own when none.
+		Returns:
+			None
+		"""
 		#if we dont get a driver (browser), start a new one.
 		if driver == None:
 			self.driver = webdriver.Chrome()
@@ -33,14 +34,14 @@ class WebHandler:
 		self.return_date = return_date
 
 	def fill_fields(self):
-    """Use all the self.* variables to fill the boxes on the landing package
-	of Easyjet.
-    Args: None
-    Returns:
-        None: Nothing
-	TODO:
-		check if inputs are sane.
-    """
+		"""Use all the self.* variables to fill the boxes on the landing package
+		of Easyjet.
+	    Args: None
+	    Returns:
+	        None: Nothing
+		TODO:
+			check if inputs are sane.
+	    """
 		self.fill_box("destination", self.destination)
 		self.fill_box("origin",self.origin)
 		print('Set depart date')
@@ -52,13 +53,13 @@ class WebHandler:
 		time.sleep(5)
 
 	def fill_box(self,name,message):
-    """given the css name of a textbox enter the message into that textbox.
-    Args:
-        name (string): css class name of the box to enter the message in
-        message (string): message to put into html text box
-	Returns:
-        type: selenium element object
-    """
+		"""given the css name of a textbox enter the message into that textbox.
+		Args:
+		    name (string): css class name of the box to enter the message in
+		    message (string): message to put into html text box
+		Returns:
+		    type: selenium element object
+		"""
 		box = self.driver.find_element_by_name(name)
 		# emptybox
 		box.clear()
@@ -67,15 +68,15 @@ class WebHandler:
 		return box
 
 	def set_date(self, date, Depart=True):
-    """ Manager function to perform all the clicks to set a date on the main
-	page of easyjet.
-    Args:
-        date (string): YYYY-MM-DD string of the date that is entered.
-				e.q. "2019-03-13".
-        Depart (Boolean): are we entering a departure date or a return date.
-    Returns:
-        type: None
-    """
+		""" Manager function to perform all the clicks to set a date on the main
+		page of easyjet.
+		Args:
+		    date (string): YYYY-MM-DD string of the date that is entered.
+					e.q. "2019-03-13".
+		    Depart (Boolean): are we entering a departure date or a return date.
+		Returns:
+		    type: None
+		"""
 		# set css class names for depart or return
 		if Depart:
 			class_name = "outbound-date-picker"
@@ -103,21 +104,18 @@ class WebHandler:
 		time.sleep(1)
 
 	def find_correct_date(self, date, calendar):
-    """iterates over all the divs with the css class of day.
-	if the data-date attribute matches the selenium element object is
-	returned.
-
-    Args:
-        date (string): YYYY-MM-DD string of the date that is looked for
-				e.q. "2019-03-13".
-        calendar (class): selenium object of the calander
-
-    Returns:
-        class: selenium object of the div that matched the date
-
-    Raises:        ExceptionName: Why the exception is raised.
-
-    """
+		"""iterates over all the divs with the css class of day.
+		if the data-date attribute matches the selenium element object is
+		returned.
+		Args:
+		    date (string): YYYY-MM-DD string of the date that is looked for
+					e.q. "2019-03-13".
+		    calendar (class): selenium object of the calander
+		Returns:
+		    class: selenium object of the div that matched the date
+		Raises:
+			ExceptionName: Why the exception is raised.
+		"""
 		dates = calendar.find_elements_by_class_name("day")
 		for day in dates:
 			# print(day.get_attribute("data-date"))
@@ -127,32 +125,31 @@ class WebHandler:
 				is the date valid? example 2019-03-13")
 
 	def find_correct_calendar(self, tab_id):
-    """iterates over all calanders with the css tag of drawer-tab-contentsself.
-	if the attribute data-tab of the tab_id is equal to the data-tab attribute
-	it is returned.
-    Args:
-        tab_id (string): css class name of the calendar tab_id you look for.
-    Returns:
-        class: selenium element object of the correct calander
-    Raises:	AttributeError: the correct calendar has not been found.
-    """
+		"""iterates over all calanders with the css tag of drawer-tab-contentsself.
+		if the attribute data-tab of the tab_id is equal to the data-tab attribute
+		it is returned.
+		Args:
+		    tab_id (string): css class name of the calendar tab_id you look for.
+		Returns:
+		    class: selenium element object of the correct calander
+		Raises:	AttributeError: the correct calendar has not been found.
+		"""
 		cals = self.driver.find_elements_by_class_name('drawer-tab-content')
 		for cal in cals:
 			if cal.get_attribute('data-tab') == tab_id:
-				print('found calendar')
 				return cal
 		raise AttributeError('div class not found in the calendars')
 
 
 	def click_submit_button(self, css_class_name=None):
-    """clicks the html object that matches the css_class_name variable,
-	has a default for the easyjet submit button on the homepage.
-    Args:
-        css_class_name (type):  name of the css calss to look for.
-		 	Defaults to None.
-    Returns:
-        type: selenium element object of the submit button
-    """
+		"""clicks the html object that matches the css_class_name variable,
+		has a default for the easyjet submit button on the homepage.
+		Args:
+		    css_class_name (type):  name of the css calss to look for.
+			 	Defaults to None.
+		Returns:
+		    type: selenium element object of the submit button
+		"""
 		if css_class_name == None:
 			css_class_name = self.submit_button_type
 		sub_button = self.driver.find_element_by_class_name(css_class_name)

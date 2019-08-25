@@ -8,8 +8,6 @@ import unittest
 from unittest import mock
 from easyjetter.utils import enter_flight_details
 
-from selenium import webdriver
-
 class TestWebHandler(unittest.TestCase):
     """Tests for `easyjetter` package."""
 
@@ -21,7 +19,7 @@ class TestWebHandler(unittest.TestCase):
 
     def test_000_testing(self):
         """Test testing."""
-        assert 0 == 0
+        self.assertEqual(0, 0)
 
 
     @mock.patch('easyjetter.utils.enter_flight_details.webdriver')
